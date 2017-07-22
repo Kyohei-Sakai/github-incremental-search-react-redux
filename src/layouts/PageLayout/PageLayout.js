@@ -5,7 +5,29 @@ import './PageLayout.scss'
 
 export const PageLayout = ({ children }) => (
   <div className='container text-center'>
-    <h1>React Redux Starter Kit</h1>
+    <nav className='navbar navbar-toggleable-md navbar-light bg-faded'>
+      <a className='navbar-brand'>Github Search</a>
+      <div className='collapse navbar-collapse' id='navbarNav'>
+        <ul className='navbar-nav'>
+          <li className='nav-item'>
+            <a className='nav-link'>
+              <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home <span className='sr-only'>(current)</span></IndexLink>
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className='nav-link'>
+              <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link>
+            </a>
+          </li>
+          <li className='nav-item'>
+            <a className='nav-link'>
+              <Link to='/repository' activeClassName='page-layout__nav-item--active'>Repository</Link>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <h1>Github Search</h1>
     <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home</IndexLink>
     {' · '}
     <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link>
