@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './Repository.scss'
 
 export const Searcher = ({ repository, searchReposWithText, getRepositories, getWathedRepositories, changeWatchStatus }) =>  {
   const list = (repos) => {
     return repos.map((repo) => (
       <li key={repo.full_name}>
         {repo.full_name}
+        <span className='watchers_count'>{repo.watchers_count}</span>
       </li>
     ))
   }
