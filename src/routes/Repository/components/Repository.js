@@ -26,9 +26,8 @@ export const Searcher = ({ repository, searchReposWithText, getRepositories, get
   }
 
   return (
-    <div style={{ margin: '0 auto' }} >
-      <h2>Repositories</h2>
-      <div>
+    <div className='wrapper'>
+      <div className='search-container'>
         <input
           typeof='text'
           style={{ margin: '30px auto'}}
