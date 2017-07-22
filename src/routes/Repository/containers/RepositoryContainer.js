@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { searchReposWithText } from '../modules/repository'
+import { searchReposWithText, getRepositories, searchAndGetRepos } from '../modules/repository'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,7 +13,8 @@ import Repository from '../components/Repository'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  searchReposWithText
+  searchReposWithText : (e) => searchAndGetRepos(e),
+  getRepositories,
 }
 
 const mapStateToProps = (state) => ({
