@@ -8,6 +8,7 @@ import Constants from '../../../constants'
 export const SEARCH_REPOS_WITH_TEXT = 'SEARCH_REPOS_WITH_TEXT'
 export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
 export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
+export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
 
 // ------------------------------------
 // Actions
@@ -77,10 +78,37 @@ export const getWathedRepositories = () => {
   }
 }
 
+export function changeWatchStatus (e) {
+  return {
+    type    : CHANGE_WATCH_STATUS,
+    payload : e.target.value
+  }
+}
+
+export const unWatchRepo = (e) => {
+  return (dispatch, getState) => {
+    dispatch(changeWatchStatus(e))
+    const repo = getState().repository.watchedRepos[e.target.value]
+    const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
+    axios.delete(API_URL, {
+        params: {
+          access_token: Constants.GITHUB_ACCESS_TOKEN,
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+}
+
 export const actions = {
   searchReposWithText,
   getRepositories,
   getWathedRepositories,
+  changeWatchStatus,
 }
 
 // ------------------------------------
@@ -102,6 +130,11 @@ const ACTION_HANDLERS = {
       watchedRepos: action.payload,
     })
   },
+  [CHANGE_WATCH_STATUS] : (state, action) => {
+    return Object.assign({}, state, {
+      changedRepo: action.payload,
+    })
+  },
 }
 
 // ------------------------------------
@@ -111,6 +144,7 @@ const initialState = {
     word: '',
     searchRepos: [],
     watchedRepos: [],
+    changedRepo: {},
 }
 export default function repositoryReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
