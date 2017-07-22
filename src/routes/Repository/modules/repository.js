@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Constants from '../../../constants'
 
 // ------------------------------------
 // Constants
@@ -24,7 +25,7 @@ export function searchReposWithText(e) {
 
 export const getRepositories = () => {
   return (dispatch, getState) => {
-    const API_URL = 'https://api.github.com/search/repositories'
+    const API_URL = `${Constants.GITHUB_BASE_URL}/search/repositories`
     axios.get(API_URL, {
         params: {
           q: `${getState().repository.word}`,
