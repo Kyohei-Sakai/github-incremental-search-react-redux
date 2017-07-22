@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const Searcher = ({ repository, searchReposWithText, getRepositories }) =>  {
+export const Searcher = ({ repository, searchReposWithText, getRepositories, getWathedRepositories }) =>  {
   const list = (repos) => {
     return repos.map((repo) => (
       <li key={repo.full_name}>
@@ -22,9 +22,16 @@ export const Searcher = ({ repository, searchReposWithText, getRepositories }) =
         <button className='btn btn-primary' onClick={getRepositories}>
           GET Repos
         </button>
-        <h3>{repository.word}</h3>
         <ul>
           {list(repository.searchRepos)}
+        </ul>
+      </div>
+      <div className='watch-container'>
+        <button className='btn btn-primary' onClick={getWathedRepositories}>
+          GET Watched Repos
+        </button>
+        <ul>
+          {list(repository.watchedRepos)}
         </ul>
       </div>
     </div>
@@ -34,6 +41,7 @@ Searcher.propTypes = {
   repository: PropTypes.object.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
   getRepositories: PropTypes.func.isRequired,
+  getWathedRepositories: PropTypes.func.isRequired,
 }
 
 export default Searcher

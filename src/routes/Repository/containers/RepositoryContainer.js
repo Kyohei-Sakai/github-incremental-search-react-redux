@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { searchReposWithText, getRepositories, searchAndGetRepos } from '../modules/repository'
+import { getRepositories, searchAndGetRepos, getWathedRepositories } from '../modules/repository'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -15,6 +15,7 @@ import Repository from '../components/Repository'
 const mapDispatchToProps = {
   searchReposWithText : (e) => searchAndGetRepos(e),
   getRepositories,
+  getWathedRepositories,
 }
 
 const mapStateToProps = (state) => ({

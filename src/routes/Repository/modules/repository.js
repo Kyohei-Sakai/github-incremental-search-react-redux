@@ -7,6 +7,7 @@ import Constants from '../../../constants'
 
 export const SEARCH_REPOS_WITH_TEXT = 'SEARCH_REPOS_WITH_TEXT'
 export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
+export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
 
 // ------------------------------------
 // Actions
@@ -54,9 +55,32 @@ export const searchAndGetRepos = (e) => {
   }
 }
 
+export const getWathedRepositories = () => {
+  return (dispatch, getState) => {
+    console.log(getState().searcher)
+    const API_URL = `${Constants.GITHUB_BASE_URL}/user/subscriptions`
+    axios.get(API_URL, {
+        params: {
+          access_token: Constants.GITHUB_ACCESS_TOKEN,
+        }
+      })
+      .then(function (response) {
+        console.log(response);
+        dispatch({
+          type    : FAIND_WATCHED_REPOSITORY,
+          payload : response.data
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  }
+}
+
 export const actions = {
   searchReposWithText,
   getRepositories,
+  getWathedRepositories,
 }
 
 // ------------------------------------
@@ -73,6 +97,11 @@ const ACTION_HANDLERS = {
       searchRepos: action.payload,
     })
   },
+  [FAIND_WATCHED_REPOSITORY] : (state, action) => {
+    return Object.assign({}, state, {
+      watchedRepos: action.payload,
+    })
+  },
 }
 
 // ------------------------------------
@@ -81,6 +110,7 @@ const ACTION_HANDLERS = {
 const initialState = {
     word: '',
     searchRepos: [],
+    watchedRepos: [],
 }
 export default function repositoryReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
