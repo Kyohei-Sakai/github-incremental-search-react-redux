@@ -8,7 +8,7 @@ export class Repository extends Component {
 
   render() {
     const { repository } = this.props
-    const { searchReposWithText, getRepositories } = this.props
+    const { searchReposWithText } = this.props
     const { getWathedRepositories, changeWatchStatus } = this.props
 
     return (
@@ -16,7 +16,6 @@ export class Repository extends Component {
         <Searcher
           repos={repository.searchRepos}
           searchReposWithText={searchReposWithText}
-          getRepositories={getRepositories}
           limit={repository.reqLimit}
         />
         <Watcher
@@ -32,7 +31,6 @@ export class Repository extends Component {
 Repository.propTypes = {
   repository: PropTypes.object.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
-  getRepositories: PropTypes.func.isRequired,
   getWathedRepositories: PropTypes.func.isRequired,
   changeWatchStatus: PropTypes.func.isRequired,
 }

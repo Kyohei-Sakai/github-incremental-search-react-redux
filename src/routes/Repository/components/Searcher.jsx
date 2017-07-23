@@ -6,7 +6,7 @@ export class Searcher extends Component {
 
   render() {
     const { repos, limit } = this.props
-    const { searchReposWithText, getRepositories } = this.props
+    const { searchReposWithText } = this.props
 
     const list = (repos) => {
       return repos.map((repo) => (
@@ -31,9 +31,8 @@ export class Searcher extends Component {
           style={{ margin: '30px auto'}}
           placeholder="Search..."
           onChange={searchReposWithText}></input>
-        <button className='btn btn-primary' onClick={getRepositories}>
-          GET Repos
-        </button>
+          onChange={searchReposWithText}
+        />
         <ul>
           {list(repos)}
         </ul>
@@ -45,7 +44,6 @@ export class Searcher extends Component {
 Searcher.propTypes = {
   repos: PropTypes.array.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
-  getRepositories: PropTypes.func.isRequired,
 }
 
 export default Searcher

@@ -16,7 +16,8 @@ export class Watcher extends Component {
             type='checkbox'
             checked='checked'
             value={index}
-            onClick={changeWatchStatus} />
+            onClick={changeWatchStatus}
+          />
         </li>
       ))
     }
