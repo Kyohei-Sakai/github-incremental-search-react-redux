@@ -25,7 +25,7 @@ export class Watcher extends Component {
     return (
       <div className='watch-container'>
         <button className='btn btn-primary' onClick={getWathedRepositories}>
-          GET Watched Repos
+          Show Watched Repos
         </button>
         <ul>
           {list(repos)}

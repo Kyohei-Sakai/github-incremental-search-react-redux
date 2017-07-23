@@ -28,9 +28,7 @@ export class Searcher extends Component {
         {alert(limit)}
         <input
           typeof='text'
-          style={{ margin: '30px auto'}}
-          placeholder="Search..."
-          onChange={searchReposWithText}></input>
+          placeholder="Search... repositories"
           onChange={searchReposWithText}
         />
         <ul>
