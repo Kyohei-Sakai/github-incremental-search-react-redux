@@ -5,7 +5,7 @@ import './Searcher.scss'
 export class Searcher extends Component {
 
   render() {
-    const { repos } = this.props
+    const { repos, limit } = this.props
     const { searchReposWithText, getRepositories } = this.props
 
     const list = (repos) => {
@@ -17,8 +17,16 @@ export class Searcher extends Component {
       ))
     }
 
+    const alert = (limit) => {
+      console.log(limit)
+      return (limit)
+        ? <div className='alert alert-danger'>Wait a little!</div>
+        : null
+    }
+
     return (
       <div className='search-container'>
+        {alert(limit)}
         <input
           typeof='text'
           style={{ margin: '30px auto'}}

@@ -17,6 +17,7 @@ export class Repository extends Component {
           repos={repository.searchRepos}
           searchReposWithText={searchReposWithText}
           getRepositories={getRepositories}
+          limit={repository.reqLimit}
         />
         <Watcher
           repos={repository.watchedRepos}

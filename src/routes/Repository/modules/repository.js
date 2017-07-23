@@ -9,6 +9,7 @@ export const SEARCH_REPOS_WITH_TEXT = 'SEARCH_REPOS_WITH_TEXT'
 export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
 export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
 export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
+export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 
 // ------------------------------------
 // Actions
@@ -22,6 +23,13 @@ export function searchReposWithText(e) {
   return {
     type    : SEARCH_REPOS_WITH_TEXT,
     payload : e.target.value
+  }
+}
+
+export function changeLimit(bool) {
+  return {
+    type    : CHANGE_SEARCH_REQUEST_LIMIT,
+    payload : bool
   }
 }
 
@@ -41,9 +49,13 @@ export const getRepositories = () => {
           type    : SEARCH_REPOSITORY,
           payload : response.data.items
         })
+        if (getState().repository.reqLimit) {
+          dispatch(changeLimit(false))
+        }
       })
       .catch(function (error) {
         console.log(error);
+        dispatch(changeLimit(true))
       })
   }
 }
@@ -110,6 +122,7 @@ export const actions = {
   getRepositories,
   getWathedRepositories,
   changeWatchStatus,
+  changeLimit,
 }
 
 // ------------------------------------
@@ -136,6 +149,11 @@ const ACTION_HANDLERS = {
       changedRepo: action.payload,
     })
   },
+  [CHANGE_SEARCH_REQUEST_LIMIT] : (state, action) => {
+    return Object.assign({}, state, {
+      reqLimit: action.payload,
+    })
+  },
 }
 
 // ------------------------------------
@@ -146,6 +164,7 @@ const initialState = {
     searchRepos: [],
     watchedRepos: [],
     changedRepo: {},
+    reqLimit: false,
 }
 export default function repositoryReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
