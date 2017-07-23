@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Repository.scss'
 
-export const Searcher = ({ repository, searchReposWithText, getRepositories, getWathedRepositories, changeWatchStatus }) =>  {
+export const Repository = ({ repository, searchReposWithText, getRepositories, getWathedRepositories, changeWatchStatus }) =>  {
   const list = (repos) => {
     return repos.map((repo) => (
       <li key={repo.full_name}>
@@ -51,7 +51,8 @@ export const Searcher = ({ repository, searchReposWithText, getRepositories, get
     </div>
   );
 }
-Searcher.propTypes = {
+
+Repository.propTypes = {
   repository: PropTypes.object.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
   getRepositories: PropTypes.func.isRequired,
@@ -59,4 +60,4 @@ Searcher.propTypes = {
   changeWatchStatus: PropTypes.func.isRequired,
 }
 
-export default Searcher
+export default Repository
