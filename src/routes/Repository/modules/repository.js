@@ -144,6 +144,7 @@ export const watchRepository = (e) => {
 
 export const actions = {
   searchReposWithText,
+  searchAndGetRepos,
   getRepositories,
   getWathedRepositories,
   changeWatchStatus,

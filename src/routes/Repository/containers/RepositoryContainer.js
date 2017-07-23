@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { searchAndGetRepos, getWathedRepositories, unWatchRepository, watchRepository } from '../modules/repository'
+import { actions } from '../modules/repository'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -13,10 +13,10 @@ import Repository from '../components/Repository.jsx'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
-  searchReposWithText : (e) => searchAndGetRepos(e),
-  getWathedRepositories,
-  unWatchRepository,
-  watchRepository,
+  searchReposWithText   : actions.searchAndGetRepos,
+  getWathedRepositories : actions.getWathedRepositories,
+  unWatchRepository     : actions.unWatchRepository,
+  watchRepository       : actions.watchRepository,
 }
 
 const mapStateToProps = (state) => ({
