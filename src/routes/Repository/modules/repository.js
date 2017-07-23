@@ -30,6 +30,7 @@ export const getRepositories = () => {
     const API_URL = `${Constants.GITHUB_BASE_URL}/search/repositories`
     axios.get(API_URL, {
         params: {
+          access_token: Constants.GITHUB_ACCESS_TOKEN,
           q: `${getState().repository.word}`,
           sort: 'stars',
         }
