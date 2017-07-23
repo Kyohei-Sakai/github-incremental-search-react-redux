@@ -15,10 +15,6 @@ export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 // Actions
 // ------------------------------------
 
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
-
 export function searchReposWithText(e) {
   return {
     type    : SEARCH_REPOS_WITH_TEXT,
@@ -125,7 +121,6 @@ export const watchRepository = (e) => {
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.put(API_URL, {
         subscribed: true,
-        // ignored: 'true',
       }, {
         params: {
           access_token: Constants.GITHUB_ACCESS_TOKEN,

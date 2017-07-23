@@ -12,7 +12,7 @@ export class Searcher extends Component {
       return repos.map((repo, index) => (
         <li key={repo.full_name}>
           <button
-            type="button"
+            type='button'
             className='btn btn-outline-success btn-sm'
             value={index}
             onClick={watchRepository}
@@ -36,7 +36,7 @@ export class Searcher extends Component {
         {alert(limit)}
         <input
           typeof='text'
-          placeholder="Search... repositories"
+          placeholder='Search... repositories'
           onChange={searchReposWithText}
         />
         <ul>
