@@ -43,8 +43,8 @@ export const getRepositories = () => {
           sort: 'stars',
         }
       })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        console.log(response)
         dispatch({
           type    : SEARCH_REPOSITORY,
           payload : response.data.items
@@ -53,8 +53,8 @@ export const getRepositories = () => {
           dispatch(changeLimit(false))
         }
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.log(error)
         dispatch(changeLimit(true))
       })
   }
@@ -78,20 +78,20 @@ export const getWathedRepositories = () => {
           access_token: Constants.GITHUB_ACCESS_TOKEN,
         }
       })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        console.log(response)
         dispatch({
           type    : FAIND_WATCHED_REPOSITORY,
           payload : response.data
         })
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.log(error)
       })
   }
 }
 
-export function changeWatchStatus (e) {
+export function changeWatchStatus(e) {
   return {
     type    : CHANGE_WATCH_STATUS,
     payload : e.target.value
@@ -108,11 +108,11 @@ export const unWatchRepo = (e) => {
           access_token: Constants.GITHUB_ACCESS_TOKEN,
         }
       })
-      .then(function (response) {
-        console.log(response);
+      .then((response) => {
+        console.log(response)
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.log(error)
       })
   }
 }

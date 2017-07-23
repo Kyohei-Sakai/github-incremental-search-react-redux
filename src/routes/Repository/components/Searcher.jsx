@@ -18,7 +18,6 @@ export class Searcher extends Component {
     }
 
     const alert = (limit) => {
-      console.log(limit)
       return (limit)
         ? <div className='alert alert-danger'>Wait a little!</div>
         : null
