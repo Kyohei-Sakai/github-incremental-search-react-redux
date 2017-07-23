@@ -6,11 +6,19 @@ export class Searcher extends Component {
 
   render() {
     const { repos, limit } = this.props
-    const { searchReposWithText } = this.props
+    const { searchReposWithText, watchRepository } = this.props
 
     const list = (repos) => {
-      return repos.map((repo) => (
+      return repos.map((repo, index) => (
         <li key={repo.full_name}>
+          <button
+            type="button"
+            className='btn btn-outline-success btn-sm'
+            value={index}
+            onClick={watchRepository}
+          >
+            watch
+          </button>
           {repo.full_name}
           <span className='watchers_count'>{repo.watchers_count}</span>
         </li>
@@ -42,6 +50,7 @@ export class Searcher extends Component {
 Searcher.propTypes = {
   repos: PropTypes.array.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
+  watchRepository: PropTypes.func.isRequired,
 }
 
 export default Searcher

@@ -98,7 +98,7 @@ export function changeWatchStatus(e) {
   }
 }
 
-export const unWatchRepo = (e) => {
+export const unWatchRepository = (e) => {
   return (dispatch, getState) => {
     dispatch(changeWatchStatus(e))
     const repo = getState().repository.watchedRepos[e.target.value]
@@ -117,12 +117,39 @@ export const unWatchRepo = (e) => {
   }
 }
 
+export const watchRepository = (e) => {
+  return (dispatch, getState) => {
+    dispatch(changeWatchStatus(e))
+    const repo = getState().repository.searchRepos[e.target.value]
+    console.log(repo)
+    const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
+    axios.put(API_URL, {
+        subscribed: true,
+        // ignored: 'true',
+      }, {
+        params: {
+          access_token: Constants.GITHUB_ACCESS_TOKEN,
+        }
+      })
+      .then((response) => {
+        console.log(response)
+        dispatch(getWathedRepositories())
+        dispatch(getRepositories())
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
 export const actions = {
   searchReposWithText,
   getRepositories,
   getWathedRepositories,
   changeWatchStatus,
   changeLimit,
+  unWatchRepository,
+  watchRepository,
 }
 
 // ------------------------------------

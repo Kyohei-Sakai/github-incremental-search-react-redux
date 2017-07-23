@@ -6,7 +6,7 @@ export class Watcher extends Component {
 
   render() {
     const { repos } = this.props
-    const { getWathedRepositories, changeWatchStatus } = this.props
+    const { getWathedRepositories, unWatchRepository } = this.props
 
     const list = (repos) => {
       return repos.map((repo, index) => (
@@ -16,7 +16,7 @@ export class Watcher extends Component {
             type='checkbox'
             checked='checked'
             value={index}
-            onClick={changeWatchStatus}
+            onClick={unWatchRepository}
           />
         </li>
       ))
@@ -38,7 +38,7 @@ export class Watcher extends Component {
 Watcher.propTypes = {
   repos: PropTypes.array.isRequired,
   getWathedRepositories: PropTypes.func.isRequired,
-  changeWatchStatus: PropTypes.func.isRequired,
+  unWatchRepository: PropTypes.func.isRequired,
 }
 
 export default Watcher
