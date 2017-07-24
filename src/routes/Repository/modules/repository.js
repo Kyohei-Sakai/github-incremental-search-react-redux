@@ -10,6 +10,7 @@ export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
 export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
 export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
 export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
+export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
 
 // ------------------------------------
 // Actions
@@ -26,6 +27,13 @@ export function changeLimit(bool) {
   return {
     type    : CHANGE_SEARCH_REQUEST_LIMIT,
     payload : bool
+  }
+}
+
+export function deleteRepoFromWatchedList(index) {
+  return {
+    type    : DELETE_REPO_FROM_WATCHED_LIST,
+    payload : index
   }
 }
 
@@ -97,6 +105,7 @@ export function changeWatchStatus(e) {
 export const unWatchRepository = (e) => {
   return (dispatch, getState) => {
     dispatch(changeWatchStatus(e))
+    const index = e.target.value
     const repo = getState().repository.watchedRepos[e.target.value]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.delete(API_URL, {
@@ -106,6 +115,8 @@ export const unWatchRepository = (e) => {
       })
       .then((response) => {
         console.log(response)
+        console.log(index)
+        dispatch(deleteRepoFromWatchedList(Number(index)))
       })
       .catch((error) => {
         console.log(error)
@@ -146,6 +157,7 @@ export const actions = {
   changeLimit,
   unWatchRepository,
   watchRepository,
+  deleteRepoFromWatchedList,
 }
 
 // ------------------------------------
@@ -175,6 +187,16 @@ const ACTION_HANDLERS = {
   [CHANGE_SEARCH_REQUEST_LIMIT] : (state, action) => {
     return Object.assign({}, state, {
       reqLimit: action.payload,
+    })
+  },
+  [DELETE_REPO_FROM_WATCHED_LIST] : (state, action) => {
+    const watchedRepos = [].concat(state.watchedRepos)
+    const deleteIndex = action.payload
+    const newWatchedRepos = watchedRepos.filter((repo, index) => {
+      return index != deleteIndex
+    })
+    return Object.assign({}, state, {
+      watchedRepos: newWatchedRepos,
     })
   },
 }
