@@ -18,7 +18,7 @@ export class Searcher extends Component {
             id={repo.owner.id}
           />
           {repo.full_name}
-          <span className='watchers_count'>{repo.watchers_count}</span>
+          <span className='watchers_count'>★ {repo.watchers_count}</span>
           <button
             type='button'
             className='btn btn-outline-success btn-sm'
@@ -39,12 +39,13 @@ export class Searcher extends Component {
 
     return (
       <div className='search-container'>
-        {alert(limit)}
         <input
           typeof='text'
+          className='form-control'
           placeholder='Search... repositories'
           onChange={searchReposWithText}
         />
+        {alert(limit)}
         <ul>
           {list(repos)}
         </ul>
