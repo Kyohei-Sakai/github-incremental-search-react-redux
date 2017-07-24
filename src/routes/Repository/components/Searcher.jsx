@@ -11,6 +11,13 @@ export class Searcher extends Component {
     const list = (repos) => {
       return repos.map((repo, index) => (
         <li key={repo.full_name}>
+          <img
+            className='avatar'
+            src={repo.owner.avatar_url}
+            alt='avatar'
+            id={repo.owner.id}
+          />
+          {repo.full_name}
           <button
             type='button'
             className='btn btn-outline-success btn-sm'

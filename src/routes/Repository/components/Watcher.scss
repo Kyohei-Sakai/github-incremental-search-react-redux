@@ -5,4 +5,9 @@
 li {
   list-style-type: none;
   text-align: left;
+  .avatar {
+    border-radius: 5px 5px 0 0;
+    height: 1em;
+    margin-right: 10px;
+  }
 }

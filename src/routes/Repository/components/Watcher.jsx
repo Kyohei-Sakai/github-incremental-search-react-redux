@@ -11,6 +11,12 @@ export class Watcher extends Component {
     const list = (repos) => {
       return repos.map((repo, index) => (
         <li key={repo.full_name}>
+          <img
+            className='avatar'
+            src={repo.owner.avatar_url}
+            alt='avatar'
+            id={repo.owner.id}
+          />
           {repo.full_name}
           <input
             type='checkbox'
