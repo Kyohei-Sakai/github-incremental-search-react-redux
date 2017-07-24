@@ -18,19 +18,21 @@ export class Watcher extends Component {
             id={repo.owner.id}
           />
           {repo.full_name}
-          <input
-            type='checkbox'
-            checked='checked'
+          <button
+            type='button'
+            className='btn btn-outline-success btn-sm'
             value={index}
             onClick={unWatchRepository}
-          />
+          >
+            Unwatch
+          </button>
         </li>
       ))
     }
 
     return (
       <div className='watch-container'>
-        <button className='btn btn-primary' onClick={getWathedRepositories}>
+        <button className='btn btn-primary btn-watched' onClick={getWathedRepositories}>
           Show Watched Repos
         </button>
         <ul>

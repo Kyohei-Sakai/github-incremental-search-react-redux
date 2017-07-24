@@ -18,6 +18,7 @@ export class Searcher extends Component {
             id={repo.owner.id}
           />
           {repo.full_name}
+          <span className='watchers_count'>{repo.watchers_count}</span>
           <button
             type='button'
             className='btn btn-outline-success btn-sm'
@@ -26,8 +27,6 @@ export class Searcher extends Component {
           >
             watch
           </button>
-          {repo.full_name}
-          <span className='watchers_count'>{repo.watchers_count}</span>
         </li>
       ))
     }
