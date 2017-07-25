@@ -11,6 +11,7 @@ export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
 export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
 export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
+export const DELETE_LIST_ALL = 'DELETE_LIST_ALL'
 
 // ------------------------------------
 // Actions
@@ -34,6 +35,13 @@ export function deleteRepoFromWatchedList(index) {
   return {
     type    : DELETE_REPO_FROM_WATCHED_LIST,
     payload : index
+  }
+}
+
+export function deleteListAll() {
+  return {
+    type    : DELETE_LIST_ALL,
+    payload : []
   }
 }
 
@@ -67,7 +75,9 @@ export const getRepositories = () => {
 export const searchAndGetRepos = (e) => {
   return (dispatch, getState) => {
     dispatch(searchReposWithText(e))
-    if (e.target.value !== '') {
+    if (e.target.value === '') {
+      dispatch(deleteListAll())
+    } else {
       dispatch(getRepositories())
     }
   }
@@ -158,6 +168,7 @@ export const actions = {
   unWatchRepository,
   watchRepository,
   deleteRepoFromWatchedList,
+  deleteListAll,
 }
 
 // ------------------------------------
@@ -197,6 +208,11 @@ const ACTION_HANDLERS = {
     })
     return Object.assign({}, state, {
       watchedRepos: newWatchedRepos,
+    })
+  },
+  [DELETE_LIST_ALL] : (state, action) => {
+    return Object.assign({}, state, {
+      searchRepos: action.payload,
     })
   },
 }
