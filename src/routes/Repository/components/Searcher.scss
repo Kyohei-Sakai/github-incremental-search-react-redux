@@ -7,6 +7,13 @@
   input {
     margin: 5px auto 30px;
   }
+  div .sort-setting {
+    text-align: left;
+    .sort-param {
+      margin-left: 30px;
+      font-size: 12px;
+    }
+  }
 
   ul {
     li:hover {

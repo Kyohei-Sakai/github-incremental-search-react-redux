@@ -6,7 +6,7 @@ export class Searcher extends Component {
 
   render() {
     const { repos, limit } = this.props
-    const { searchReposWithText, watchRepository } = this.props
+    const { searchReposWithText, watchRepository, changeSortParam } = this.props
 
     const list = (repos) => {
       return repos.map((repo, index) => (
@@ -55,6 +55,19 @@ export class Searcher extends Component {
             onChange={searchReposWithText}
           />
           {alert(limit)}
+          <div className='params'>
+            <div>
+              <div className='sort-setting'>
+                <span>sort:</span>
+                <select className='sort-param' onChange={changeSortParam}>
+                  <option value=''>best match</option>
+                  <option value='stars'>stars</option>
+                  <option value='forks'>forks</option>
+                  <option value='updated'>updated</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </header>
         <div className='list'>
           <ul>
@@ -70,6 +83,7 @@ Searcher.propTypes = {
   repos: PropTypes.array.isRequired,
   searchReposWithText: PropTypes.func.isRequired,
   watchRepository: PropTypes.func.isRequired,
+  changeSortParam: PropTypes.func.isRequired,
 }
 
 export default Searcher

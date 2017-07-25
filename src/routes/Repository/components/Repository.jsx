@@ -8,7 +8,7 @@ export class Repository extends Component {
 
   render() {
     const { repository } = this.props
-    const { searchReposWithText, watchRepository } = this.props
+    const { searchReposWithText, watchRepository, changeSortParam } = this.props
     const { getWathedRepositories, unWatchRepository } = this.props
 
     return (
@@ -18,6 +18,7 @@ export class Repository extends Component {
           searchReposWithText={searchReposWithText}
           limit={repository.reqLimit}
           watchRepository={watchRepository}
+          changeSortParam={changeSortParam}
         />
         <Watcher
           repos={repository.watchedRepos}

@@ -12,6 +12,7 @@ export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
 export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
 export const DELETE_LIST_ALL = 'DELETE_LIST_ALL'
+export const CHANGE_SORT_PARAM = 'CHANGE_SORT_PARAM'
 
 // ------------------------------------
 // Actions
@@ -52,14 +53,28 @@ export function deleteListAll() {
   }
 }
 
+export function changeSort(text) {
+  return {
+    type    : CHANGE_SORT_PARAM,
+    payload : text
+  }
+}
+
+export const changeSortParam = (e) => {
+  return (dispatch, getState) => {
+    dispatch(changeSort(e.target.value))
+  }
+}
+
 export const getRepositories = () => {
   return (dispatch, getState) => {
+    const { word, sortParam } = getState().repository
     const API_URL = `${Constants.GITHUB_BASE_URL}/search/repositories`
     axios.get(API_URL, {
         params: {
           access_token: Constants.GITHUB_ACCESS_TOKEN,
-          q: `${getState().repository.word}`,
-          sort: 'stars',
+          q: word,
+          sort: sortParam,
         }
       })
       .then((response) => {
@@ -168,6 +183,7 @@ export const actions = {
   watchRepository,
   deleteRepoFromWatchedList,
   deleteListAll,
+  changeSortParam,
 }
 
 // ------------------------------------
@@ -214,6 +230,11 @@ const ACTION_HANDLERS = {
       searchRepos: action.payload,
     })
   },
+  [CHANGE_SORT_PARAM] : (state, action) => {
+    return Object.assign({}, state, {
+      sortParam: action.payload,
+    })
+  },
 }
 
 // ------------------------------------
@@ -225,6 +246,7 @@ const initialState = {
     watchedRepos: [],
     changedRepo: {},
     reqLimit: false,
+    sortParam: '',  // stars, forks, updated | default: sorted by best match.
 }
 
 export default function repositoryReducer (state = initialState, action) {

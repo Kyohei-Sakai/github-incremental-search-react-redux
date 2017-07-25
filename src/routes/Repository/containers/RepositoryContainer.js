@@ -7,6 +7,7 @@ const mapDispatchToProps = {
   getWathedRepositories : actions.getWathedRepositories,
   unWatchRepository     : actions.unWatchRepository,
   watchRepository       : actions.watchRepository,
+  changeSortParam       : actions.changeSortParam,
 }
 
 const mapStateToProps = (state) => ({
