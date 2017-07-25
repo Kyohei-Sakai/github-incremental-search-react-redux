@@ -8,7 +8,6 @@ import Constants from '../../../constants'
 export const SEARCH_REPOS_WITH_TEXT = 'SEARCH_REPOS_WITH_TEXT'
 export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
 export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
-export const CHANGE_WATCH_STATUS = 'CHANGE_WATCH_STATUS'
 export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
 export const DELETE_LIST_ALL = 'DELETE_LIST_ALL'
@@ -31,13 +30,6 @@ export function changeLimit(bool) {
   return {
     type    : CHANGE_SEARCH_REQUEST_LIMIT,
     payload : bool
-  }
-}
-
-export function changeWatchStatus(e) {
-  return {
-    type    : CHANGE_WATCH_STATUS,
-    payload : e.target.value
   }
 }
 
@@ -161,7 +153,6 @@ export const getWathedRepositories = () => {
 
 export const unWatchRepository = (e) => {
   return (dispatch, getState) => {
-    dispatch(changeWatchStatus(e))
     const index = Number(e.target.value)
     const repo = getState().repository.watchedRepos[index]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
@@ -183,7 +174,6 @@ export const unWatchRepository = (e) => {
 
 export const watchRepository = (e) => {
   return (dispatch, getState) => {
-    dispatch(changeWatchStatus(e))
     const repo = getState().repository.searchRepos[e.target.value]
     console.log(repo)
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
@@ -210,7 +200,6 @@ export const actions = {
   searchAndGetRepos,
   getRepositories,
   getWathedRepositories,
-  changeWatchStatus,
   changeLimit,
   unWatchRepository,
   watchRepository,
@@ -238,11 +227,6 @@ const ACTION_HANDLERS = {
   [FAIND_WATCHED_REPOSITORY] : (state, action) => {
     return Object.assign({}, state, {
       watchedRepos: action.payload,
-    })
-  },
-  [CHANGE_WATCH_STATUS] : (state, action) => {
-    return Object.assign({}, state, {
-      changedRepo: action.payload,
     })
   },
   [CHANGE_SEARCH_REQUEST_LIMIT] : (state, action) => {
@@ -289,7 +273,6 @@ const initialState = {
     word: '',
     searchRepos: [],
     watchedRepos: [],
-    changedRepo: {},
     reqLimit: false,
     sortParam: '',  // stars, forks, updated | default: sorted by best match.
     refineWord: '',
