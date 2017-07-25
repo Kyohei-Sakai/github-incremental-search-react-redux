@@ -11,22 +11,28 @@ export class Searcher extends Component {
     const list = (repos) => {
       return repos.map((repo, index) => (
         <li key={repo.full_name}>
-          <img
-            className='avatar'
-            src={repo.owner.avatar_url}
-            alt='avatar'
-            id={repo.owner.id}
-          />
-          {repo.full_name}
-          <span className='watchers_count'>★ {repo.watchers_count}</span>
-          <button
-            type='button'
-            className='btn btn-outline-success btn-sm'
-            value={index}
-            onClick={watchRepository}
-          >
-            watch
-          </button>
+          <div className='repo-info'>
+            <span>
+              <img
+                className='avatar'
+                src={repo.owner.avatar_url}
+                alt='avatar'
+                id={repo.owner.id}
+              />
+            </span>
+            <span>{repo.full_name}</span>
+            <span className='watchers_count'>★ {repo.watchers_count}</span>
+          </div>
+          <div className='switch-watch'>
+            <button
+              type='button'
+              className='btn btn-outline-success btn-sm'
+              value={index}
+              onClick={watchRepository}
+            >
+              watch
+            </button>
+          </div>
         </li>
       ))
     }
