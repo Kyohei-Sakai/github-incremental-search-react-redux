@@ -95,6 +95,17 @@ export const changeSortParam = (e) => {
   }
 }
 
+export const searchAndGetRepos = (e) => {
+  return (dispatch, getState) => {
+    dispatch(searchReposWithText(e))
+    if (e.target.value === '') {
+      dispatch(deleteListAll())
+    } else {
+      dispatch(getRepositories())
+    }
+  }
+}
+
 export const getRepositories = () => {
   return (dispatch, getState) => {
     const { word, sortParam } = getState().repository
@@ -120,17 +131,6 @@ export const getRepositories = () => {
         console.log(error)
         dispatch(changeLimit(true))
       })
-  }
-}
-
-export const searchAndGetRepos = (e) => {
-  return (dispatch, getState) => {
-    dispatch(searchReposWithText(e))
-    if (e.target.value === '') {
-      dispatch(deleteListAll())
-    } else {
-      dispatch(getRepositories())
-    }
   }
 }
 

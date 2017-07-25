@@ -50,7 +50,6 @@ export class Searcher extends Component {
           <input
             typeof='text'
             className='form-control'
-            id="exampleInputEmail1"
             placeholder='Search... repositories'
             onChange={searchReposWithText}
           />
