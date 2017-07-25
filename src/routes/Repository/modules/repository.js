@@ -31,6 +31,13 @@ export function changeLimit(bool) {
   }
 }
 
+export function changeWatchStatus(e) {
+  return {
+    type    : CHANGE_WATCH_STATUS,
+    payload : e.target.value
+  }
+}
+
 export function deleteRepoFromWatchedList(index) {
   return {
     type    : DELETE_REPO_FROM_WATCHED_LIST,
@@ -85,7 +92,6 @@ export const searchAndGetRepos = (e) => {
 
 export const getWathedRepositories = () => {
   return (dispatch, getState) => {
-    console.log(getState().searcher)
     const API_URL = `${Constants.GITHUB_BASE_URL}/user/subscriptions`
     axios.get(API_URL, {
         params: {
@@ -105,18 +111,11 @@ export const getWathedRepositories = () => {
   }
 }
 
-export function changeWatchStatus(e) {
-  return {
-    type    : CHANGE_WATCH_STATUS,
-    payload : e.target.value
-  }
-}
-
 export const unWatchRepository = (e) => {
   return (dispatch, getState) => {
     dispatch(changeWatchStatus(e))
-    const index = e.target.value
-    const repo = getState().repository.watchedRepos[e.target.value]
+    const index = Number(e.target.value)
+    const repo = getState().repository.watchedRepos[index]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.delete(API_URL, {
         params: {
@@ -126,7 +125,7 @@ export const unWatchRepository = (e) => {
       .then((response) => {
         console.log(response)
         console.log(index)
-        dispatch(deleteRepoFromWatchedList(Number(index)))
+        dispatch(deleteRepoFromWatchedList(index))
       })
       .catch((error) => {
         console.log(error)
@@ -227,6 +226,7 @@ const initialState = {
     changedRepo: {},
     reqLimit: false,
 }
+
 export default function repositoryReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
 
