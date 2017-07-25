@@ -6,7 +6,7 @@ export class Watcher extends Component {
 
   render() {
     const { repos } = this.props
-    const { getWathedRepositories, unWatchRepository } = this.props
+    const { getWathedRepositories, unWatchRepository, refineWatchedRepos } = this.props
 
     const list = (repos) => {
       return repos.map((repo, index) => (
@@ -40,12 +40,20 @@ export class Watcher extends Component {
       <div className='watch-container'>
         <header>
           <h2>Watch</h2>
-          <button
-            className='btn btn-watched-update'
-            onClick={getWathedRepositories}
-          >
-            Update
-          </button>
+          <div className='search'>
+            <input
+              typeof='text'
+              className='form-control'
+              placeholder='Search...'
+              onChange={refineWatchedRepos}
+            />
+            <button
+              className='btn btn-watched-update'
+              onClick={getWathedRepositories}
+            >
+              Update
+            </button>
+          </div>
         </header>
         <div className='list'>
           <ul>

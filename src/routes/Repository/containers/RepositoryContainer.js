@@ -8,6 +8,7 @@ const mapDispatchToProps = {
   unWatchRepository     : actions.unWatchRepository,
   watchRepository       : actions.watchRepository,
   changeSortParam       : actions.changeSortParam,
+  refineWatchedRepos    : actions.refineWatchedRepos,
 }
 
 const mapStateToProps = (state) => ({

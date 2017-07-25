@@ -9,7 +9,7 @@ export class Repository extends Component {
   render() {
     const { repository } = this.props
     const { searchReposWithText, watchRepository, changeSortParam } = this.props
-    const { getWathedRepositories, unWatchRepository } = this.props
+    const { getWathedRepositories, unWatchRepository, refineWatchedRepos } = this.props
 
     return (
       <div className='wrapper'>
@@ -21,9 +21,10 @@ export class Repository extends Component {
           changeSortParam={changeSortParam}
         />
         <Watcher
-          repos={repository.watchedRepos}
+          repos={repository.refineWatchedRepos}
           getWathedRepositories={getWathedRepositories}
           unWatchRepository={unWatchRepository}
+          refineWatchedRepos={refineWatchedRepos}
         />
       </div>
     );
@@ -36,6 +37,8 @@ Repository.propTypes = {
   getWathedRepositories: PropTypes.func.isRequired,
   watchRepository: PropTypes.func.isRequired,
   unWatchRepository: PropTypes.func.isRequired,
+  changeSortParam: PropTypes.func.isRequired,
+  refineWatchedRepos: PropTypes.func.isRequired,
 }
 
 export default Repository

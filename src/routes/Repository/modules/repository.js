@@ -13,6 +13,8 @@ export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
 export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
 export const DELETE_LIST_ALL = 'DELETE_LIST_ALL'
 export const CHANGE_SORT_PARAM = 'CHANGE_SORT_PARAM'
+export const CHANGE_REFINE_WORD = 'CHANGE_REFINE_WORD'
+export const REFINE_SEARCH_WATCHED_ROPOS = 'REFINE_SEARCH_WATCHED_ROPOS'
 
 // ------------------------------------
 // Actions
@@ -57,6 +59,33 @@ export function changeSort(text) {
   return {
     type    : CHANGE_SORT_PARAM,
     payload : text
+  }
+}
+
+export function changeRefineWord(text) {
+  return {
+    type    : CHANGE_REFINE_WORD,
+    payload : text
+  }
+}
+
+export const refineWatchedRepos = (e) => {
+  return (dispatch, getState) => {
+    const word = e.target.value
+    dispatch(changeRefineWord(word))
+    const watchedRepos = getState().repository.watchedRepos
+    var RefineRepos = []
+    watchedRepos.forEach((repo) => {
+      if (repo.full_name.indexOf(word) === -1) {
+        return;
+      } else {
+        RefineRepos.push(repo)
+      }
+    })
+    dispatch({
+      type    : REFINE_SEARCH_WATCHED_ROPOS,
+      payload : RefineRepos
+    })
   }
 }
 
@@ -117,6 +146,10 @@ export const getWathedRepositories = () => {
         console.log(response)
         dispatch({
           type    : FAIND_WATCHED_REPOSITORY,
+          payload : response.data
+        })
+        dispatch({
+          type    : REFINE_SEARCH_WATCHED_ROPOS,
           payload : response.data
         })
       })
@@ -184,6 +217,8 @@ export const actions = {
   deleteRepoFromWatchedList,
   deleteListAll,
   changeSortParam,
+  changeRefineWord,
+  refineWatchedRepos,
 }
 
 // ------------------------------------
@@ -235,6 +270,16 @@ const ACTION_HANDLERS = {
       sortParam: action.payload,
     })
   },
+  [CHANGE_REFINE_WORD] : (state, action) => {
+    return Object.assign({}, state, {
+      refineWord: action.payload,
+    })
+  },
+  [REFINE_SEARCH_WATCHED_ROPOS] : (state, action) => {
+    return Object.assign({}, state, {
+      refineWatchedRepos: action.payload,
+    })
+  },
 }
 
 // ------------------------------------
@@ -247,6 +292,8 @@ const initialState = {
     changedRepo: {},
     reqLimit: false,
     sortParam: '',  // stars, forks, updated | default: sorted by best match.
+    refineWord: '',
+    refineWatchedRepos: [],
 }
 
 export default function repositoryReducer (state = initialState, action) {
