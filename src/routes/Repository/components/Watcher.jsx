@@ -32,12 +32,20 @@ export class Watcher extends Component {
 
     return (
       <div className='watch-container'>
-        <button className='btn btn-primary btn-watched' onClick={getWathedRepositories}>
-          Show Watched Repos
-        </button>
-        <ul>
-          {list(repos)}
-        </ul>
+        <header>
+          <h2>Watch</h2>
+          <button
+            className='btn btn-watched-update'
+            onClick={getWathedRepositories}
+          >
+            Update
+          </button>
+        </header>
+        <div className='list'>
+          <ul>
+            {list(repos)}
+          </ul>
+        </div>
       </div>
     );
   }

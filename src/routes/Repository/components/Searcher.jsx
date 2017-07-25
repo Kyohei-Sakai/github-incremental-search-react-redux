@@ -39,16 +39,22 @@ export class Searcher extends Component {
 
     return (
       <div className='search-container'>
-        <input
-          typeof='text'
-          className='form-control'
-          placeholder='Search... repositories'
-          onChange={searchReposWithText}
-        />
-        {alert(limit)}
-        <ul>
-          {list(repos)}
-        </ul>
+        <header>
+          <h2>Search</h2>
+          <input
+            typeof='text'
+            className='form-control'
+            id="exampleInputEmail1"
+            placeholder='Search... repositories'
+            onChange={searchReposWithText}
+          />
+          {alert(limit)}
+        </header>
+        <div className='list'>
+          <ul>
+            {list(repos)}
+          </ul>
+        </div>
       </div>
     );
   }
