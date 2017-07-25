@@ -154,7 +154,7 @@ export const getWathedRepositories = () => {
 export const unWatchRepository = (e) => {
   return (dispatch, getState) => {
     const index = Number(e.target.value)
-    const repo = getState().repository.watchedRepos[index]
+    const repo = getState().repository.refineWatchedRepos[index]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.delete(API_URL, {
         params: {
@@ -235,13 +235,15 @@ const ACTION_HANDLERS = {
     })
   },
   [DELETE_REPO_FROM_WATCHED_LIST] : (state, action) => {
-    const watchedRepos = [].concat(state.watchedRepos)
+    const refineWatchedRepos = [].concat(state.refineWatchedRepos)
     const deleteIndex = action.payload
-    const newWatchedRepos = watchedRepos.filter((repo, index) => {
+    console.log(refineWatchedRepos)
+    const newWatchedRepos = refineWatchedRepos.filter((repo, index) => {
       return index != deleteIndex
     })
+    console.log(newWatchedRepos)
     return Object.assign({}, state, {
-      watchedRepos: newWatchedRepos,
+      refineWatchedRepos: newWatchedRepos,
     })
   },
   [DELETE_LIST_ALL] : (state, action) => {
