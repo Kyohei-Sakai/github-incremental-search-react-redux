@@ -1,13 +1,20 @@
 .watch-container {
   padding: 10px;
   width: 50%;
-  // background-color: rgba(227, 89, 30, 0.28);
-  // float: right;
 
-  .btn-watched-update {
-    margin: 5px auto 30px;
+  .search {
+    margin: 5px auto 12px;
+
+    input {
+      width: 50%;
+      display: inline-block;
+      float: left;
+    }
+    .btn {
+      float: right;
+      font-weight: bold;
+    }
   }
-
   ul {
     li:hover {
       background: #81d0cb;

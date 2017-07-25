@@ -1,32 +1,31 @@
 .search-container {
   padding: 10px;
   width: 50%;
-  background-culor: rgba(207, 194, 71, 0.5);
-  // float: left;
 
   input {
-    margin: 5px auto 30px;
+    margin: 5px auto 12px;
+    display: block;
   }
   div .sort-setting {
     text-align: left;
+
     .sort-param {
       margin-left: 30px;
       font-size: 12px;
     }
   }
-
   ul {
     li:hover {
       background: #F6A38B;
       color: #fff;
     }
-    button {
+    .watchers_count {
+      margin-left: 10px;
+      color: #F6A38B;
       float: right;
     }
-  }
-  .watchers_count {
-    margin-left: 10px;
-    color: rgb(231, 148, 51);
-    float: right;
+    li:hover .watchers_count {
+      color: #fff;
+    }
   }
 }

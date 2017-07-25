@@ -23,14 +23,14 @@ export class Searcher extends Component {
             <span>{repo.full_name}</span>
             <span className='watchers_count'>★ {repo.watchers_count}</span>
           </div>
-          <div className='switch-watch'>
+          <div className='watch-toggle'>
             <button
               type='button'
               className='btn btn-outline-success btn-sm'
               value={index}
               onClick={watchRepository}
             >
-              watch
+              Watch
             </button>
           </div>
         </li>
@@ -50,7 +50,7 @@ export class Searcher extends Component {
           <input
             typeof='text'
             className='form-control'
-            placeholder='Search... repositories'
+            placeholder='Repository name'
             onChange={searchReposWithText}
           />
           {alert(limit)}

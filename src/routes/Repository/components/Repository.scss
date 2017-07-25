@@ -1,14 +1,15 @@
 .wrapper {
   display: flex;
   margin: 0 auto;
-  // overflow: hidden;
+
   h2{
     text-align: left;
     border-bottom: solid 1px #ded9d9;
-    font-size: 15px;
+    font-size: 16px;
   }
   header {
     margin-bottom: 30px;
+    height: 100px;
   }
   ul {
     list-style-type: none;
@@ -22,7 +23,6 @@
       font-weight: bold;
       font-size: 14px;
       line-height: 30px;
-      border-radius: 20px;
       -webkit-transition: 0.3s;
       -moz-transition: 0.3s;
       -o-transition: 0.3s;
@@ -35,18 +35,19 @@
     li .repo-info {
       width: 80%;
     }
-    li .switch-watch {
+    li .watch-toggle {
       width: 20%;
-    }
-    li .btn {
-      margin-left: 10px;
-      font-size: 0.1em;
-      float: right !important;
+
+      .btn {
+        margin-top: 3px;
+        font-size: 9px;
+        float: right;
+      }
     }
   }
   .avatar {
-    border-radius: 5px;
     height: 1.2em;
     margin-right: 10px;
+    border-radius: 5px;
   }
 }

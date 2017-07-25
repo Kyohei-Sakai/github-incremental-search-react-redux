@@ -22,10 +22,10 @@ export class Watcher extends Component {
             </span>
             <span>{repo.full_name}</span>
           </div>
-          <div className='switch-watch'>
+          <div className='watch-toggle'>
             <button
               type='button'
-              className='btn btn-outline-success btn-sm'
+              className='btn btn-outline-danger btn-sm'
               value={index}
               onClick={unWatchRepository}
             >
@@ -39,16 +39,17 @@ export class Watcher extends Component {
     return (
       <div className='watch-container'>
         <header>
-          <h2>Watch</h2>
+          <h2>Watched</h2>
           <div className='search'>
             <input
               typeof='text'
               className='form-control'
-              placeholder='Search...'
+              placeholder='Filter keyword'
               onChange={refineWatchedRepos}
             />
             <button
-              className='btn btn-watched-update'
+              type='button'
+              className='btn btn-primary btn-sm'
               onClick={getWathedRepositories}
             >
               Update
