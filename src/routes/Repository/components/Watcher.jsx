@@ -9,31 +9,35 @@ export class Watcher extends Component {
     const { getWathedRepositories, unWatchRepository, refineWatchedRepos } = this.props
 
     const list = (repos) => {
-      return repos.map((repo, index) => (
-        <li key={repo.full_name}>
-          <div className='repo-info'>
-            <span>
-              <img
-                className='avatar'
-                src={repo.owner.avatar_url}
-                alt='avatar'
-                id={repo.owner.id}
-              />
-            </span>
-            <span>{repo.full_name}</span>
-          </div>
-          <div className='watch-toggle'>
-            <button
-              type='button'
-              className='btn btn-outline-danger btn-sm'
-              value={index}
-              onClick={unWatchRepository}
-            >
-              Unwatch
-            </button>
-          </div>
-        </li>
-      ))
+      return repos.map((repo, index) => {
+        return (index >= 50)
+          ? null
+          : (
+            <li key={repo.full_name}>
+              <div className='repo-info'>
+                <span>
+                  <img
+                    className='avatar'
+                    src={repo.owner.avatar_url}
+                    alt='avatar'
+                    id={repo.owner.id}
+                  />
+                </span>
+                <span>{repo.full_name}</span>
+              </div>
+              <div className='watch-toggle'>
+                <button
+                  type='button'
+                  className='btn btn-outline-danger btn-sm'
+                  value={index}
+                  onClick={unWatchRepository}
+                >
+                  Unwatch
+                </button>
+              </div>
+            </li>
+          )
+      })
     }
 
     return (
