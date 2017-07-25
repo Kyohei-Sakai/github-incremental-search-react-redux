@@ -10,19 +10,13 @@ export const PageLayout = ({ children }) => (
       <div className='collapse navbar-collapse' id='navbarNav'>
         <ul className='navbar-nav'>
           <li className='nav-item'>
-            <a className='nav-link'>
-              <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home <span className='sr-only'>(current)</span></IndexLink>
-            </a>
+            <IndexLink to='/' className='nav-link' activeClassName='page-layout__nav-item--active'>Home</IndexLink>
           </li>
           <li className='nav-item'>
-            <a className='nav-link'>
-              <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link>
-            </a>
+            <Link to='/counter' className='nav-link' activeClassName='page-layout__nav-item--active'>Counter</Link>
           </li>
           <li className='nav-item'>
-            <a className='nav-link'>
-              <Link to='/repository' activeClassName='page-layout__nav-item--active'>Repository</Link>
-            </a>
+            <Link to='/repository'　className='nav-link' activeClassName='page-layout__nav-item--active'>Repository</Link>
           </li>
         </ul>
       </div>
