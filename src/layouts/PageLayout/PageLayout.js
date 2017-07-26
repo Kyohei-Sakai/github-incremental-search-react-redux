@@ -21,12 +21,6 @@ export const PageLayout = ({ children }) => (
         </ul>
       </div>
     </nav>
-    <h1>Github Search</h1>
-    <IndexLink to='/' activeClassName='page-layout__nav-item--active'>Home</IndexLink>
-    {' · '}
-    <Link to='/counter' activeClassName='page-layout__nav-item--active'>Counter</Link>
-    {' · '}
-    <Link to='/repository' activeClassName='page-layout__nav-item--active'>Repository</Link>
     <div className='page-layout__viewport'>
       {children}
     </div>
