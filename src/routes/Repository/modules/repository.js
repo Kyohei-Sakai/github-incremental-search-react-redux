@@ -5,31 +5,73 @@ import Constants from '../../../constants'
 // Constants
 // ------------------------------------
 
-export const SEARCH_REPOS_WITH_TEXT = 'SEARCH_REPOS_WITH_TEXT'
-export const SEARCH_REPOSITORY = 'SEARCH_REPOSITORY'
-export const FAIND_WATCHED_REPOSITORY = 'FAIND_WATCHED_REPOSITORY'
+export const CHANGE_SEARCH_KEYWORD = 'CHANGE_SEARCH_KEYWORD'
+export const CHANGE_SEARCHED_REPOS = 'CHANGE_SEARCHED_REPOS'
 export const CHANGE_SEARCH_REQUEST_LIMIT = 'CHANGE_SEARCH_REQUEST_LIMIT'
-export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
-export const DELETE_LIST_ALL = 'DELETE_LIST_ALL'
 export const CHANGE_SORT_PARAM = 'CHANGE_SORT_PARAM'
-export const CHANGE_REFINE_WORD = 'CHANGE_REFINE_WORD'
-export const REFINE_SEARCH_WATCHED_ROPOS = 'REFINE_SEARCH_WATCHED_ROPOS'
+export const DELETE_SEACHED_REPOS_LIST_ALL = 'DELETE_SEACHED_REPOS_LIST_ALL'
+export const CHANGE_WATCHED_REPOS = 'CHANGE_WATCHED_REPOS'
+export const CHANGE_FILTER_KEYWORD = 'CHANGE_FILTER_KEYWORD'
+export const CHANGE_FILTER_WATCHED_ROPOS = 'CHANGE_FILTER_WATCHED_ROPOS'
+export const DELETE_REPO_FROM_WATCHED_LIST = 'DELETE_REPO_FROM_WATCHED_LIST'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
-export function searchReposWithText(e) {
+export function changeSearchKeyword(text) {
   return {
-    type    : SEARCH_REPOS_WITH_TEXT,
-    payload : e.target.value
+    type    : CHANGE_SEARCH_KEYWORD,
+    payload : text
   }
 }
 
-export function changeLimit(bool) {
+export function changeSearchedRepos(data) {
+  return {
+    type    : CHANGE_SEARCHED_REPOS,
+    payload : data
+  }
+}
+
+export function changeSearchRequestLimit(bool) {
   return {
     type    : CHANGE_SEARCH_REQUEST_LIMIT,
     payload : bool
+  }
+}
+
+export function changeSortParam(text) {
+  return {
+    type    : CHANGE_SORT_PARAM,
+    payload : text
+  }
+}
+
+export function deleteSeachedReposListAll() {
+  return {
+    type    : DELETE_SEACHED_REPOS_LIST_ALL,
+    payload : []
+  }
+}
+
+export function changeWatchedRepos(data) {
+  return {
+    type    : CHANGE_WATCHED_REPOS,
+    payload : data
+  }
+}
+
+export function changeFilterKeyword(text) {
+  return {
+    type    : CHANGE_FILTER_KEYWORD,
+    payload : text
+  }
+}
+
+export function changeFilterWatchedRopos(data) {
+  return {
+    type    : CHANGE_FILTER_WATCHED_ROPOS,
+    payload : data
   }
 }
 
@@ -40,110 +82,80 @@ export function deleteRepoFromWatchedList(index) {
   }
 }
 
-export function deleteListAll() {
-  return {
-    type    : DELETE_LIST_ALL,
-    payload : []
-  }
-}
-
-export function changeSort(text) {
-  return {
-    type    : CHANGE_SORT_PARAM,
-    payload : text
-  }
-}
-
-export function changeRefineWord(text) {
-  return {
-    type    : CHANGE_REFINE_WORD,
-    payload : text
-  }
-}
-
-export const refineWatchedRepos = (e) => {
+export const filterWatchedRepos = (e) => {
   return (dispatch, getState) => {
-    const word = e.target.value
-    dispatch(changeRefineWord(word))
+    const filterWord = e.target.value
+    dispatch(changeFilterKeyword(filterWord))
     const watchedRepos = getState().repository.watchedRepos
     var RefineRepos = []
     watchedRepos.forEach((repo) => {
-      if (repo.full_name.indexOf(word) === -1) {
+      if (repo.full_name.indexOf(filterWord) === -1) {
         return;
       } else {
         RefineRepos.push(repo)
       }
     })
-    dispatch({
-      type    : REFINE_SEARCH_WATCHED_ROPOS,
-      payload : RefineRepos
-    })
+    dispatch(changeFilterWatchedRopos(RefineRepos))
   }
 }
 
-export const changeSortParam = (e) => {
+export const selectSortParam = (e) => {
   return (dispatch, getState) => {
-    dispatch(changeSort(e.target.value))
+    dispatch(changeSortParam(e.target.value))
   }
 }
 
-export const searchAndGetRepos = (e) => {
+export const searchReposWithKeyword = (e) => {
   return (dispatch, getState) => {
-    dispatch(searchReposWithText(e))
-    if (e.target.value === '') {
-      dispatch(deleteListAll())
+    const searchWord = e.target.value
+    dispatch(changeSearchKeyword(searchWord))
+    if (searchWord === '') {
+      dispatch(deleteSeachedReposListAll())
     } else {
-      dispatch(getRepositories())
+      dispatch(getReposWithKeyword())
     }
   }
 }
 
-export const getRepositories = () => {
+export const getReposWithKeyword = () => {
   return (dispatch, getState) => {
-    const { word, sortParam } = getState().repository
+    const { searchWord, sortParam } = getState().repository
     const API_URL = `${Constants.GITHUB_BASE_URL}/search/repositories`
     axios.get(API_URL, {
         params: {
           access_token: Constants.GITHUB_ACCESS_TOKEN,
-          q: word,
+          q: searchWord,
           sort: sortParam,
+          per_page: 50,   // default: 30, max: 100
         }
       })
       .then((response) => {
         console.log(response)
-        dispatch({
-          type    : SEARCH_REPOSITORY,
-          payload : response.data.items
-        })
+        dispatch(changeSearchedRepos(response.data.items))
         if (getState().repository.reqLimit) {
-          dispatch(changeLimit(false))
+          dispatch(changeSearchRequestLimit(false))
         }
       })
       .catch((error) => {
         console.log(error)
-        dispatch(changeLimit(true))
+        dispatch(changeSearchRequestLimit(true))
       })
   }
 }
 
-export const getWathedRepositories = () => {
+export const getWathedRepos = () => {
   return (dispatch, getState) => {
     const API_URL = `${Constants.GITHUB_BASE_URL}/user/subscriptions`
     axios.get(API_URL, {
         params: {
           access_token: Constants.GITHUB_ACCESS_TOKEN,
+          per_page: 100,
         }
       })
       .then((response) => {
         console.log(response)
-        dispatch({
-          type    : FAIND_WATCHED_REPOSITORY,
-          payload : response.data
-        })
-        dispatch({
-          type    : REFINE_SEARCH_WATCHED_ROPOS,
-          payload : response.data
-        })
+        dispatch(changeWatchedRepos(response.data))
+        dispatch(changeFilterWatchedRopos(response.data))
       })
       .catch((error) => {
         console.log(error)
@@ -151,10 +163,10 @@ export const getWathedRepositories = () => {
   }
 }
 
-export const unWatchRepository = (e) => {
+export const unWatchRepo = (e) => {
   return (dispatch, getState) => {
     const index = Number(e.target.value)
-    const repo = getState().repository.refineWatchedRepos[index]
+    const repo = getState().repository.filteredRepos[index]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.delete(API_URL, {
         params: {
@@ -163,7 +175,6 @@ export const unWatchRepository = (e) => {
       })
       .then((response) => {
         console.log(response)
-        console.log(index)
         dispatch(deleteRepoFromWatchedList(index))
       })
       .catch((error) => {
@@ -172,10 +183,9 @@ export const unWatchRepository = (e) => {
   }
 }
 
-export const watchRepository = (e) => {
+export const watchRepo = (e) => {
   return (dispatch, getState) => {
-    const repo = getState().repository.searchRepos[e.target.value]
-    console.log(repo)
+    const repo = getState().repository.searchedRepos[e.target.value]
     const API_URL = `${Constants.GITHUB_BASE_URL}/repos/${repo.full_name}/subscription`
     axios.put(API_URL, {
         subscribed: true,
@@ -186,8 +196,8 @@ export const watchRepository = (e) => {
       })
       .then((response) => {
         console.log(response)
-        dispatch(getWathedRepositories())
-        dispatch(getRepositories())
+        dispatch(getWathedRepos())
+        dispatch(getReposWithKeyword())
       })
       .catch((error) => {
         console.log(error)
@@ -196,37 +206,36 @@ export const watchRepository = (e) => {
 }
 
 export const actions = {
-  searchReposWithText,
-  searchAndGetRepos,
-  getRepositories,
-  getWathedRepositories,
-  changeLimit,
-  unWatchRepository,
-  watchRepository,
-  deleteRepoFromWatchedList,
-  deleteListAll,
+  changeSearchKeyword,
+  changeSearchedRepos,
+  changeSearchRequestLimit,
   changeSortParam,
-  changeRefineWord,
-  refineWatchedRepos,
+  deleteSeachedReposListAll,
+  changeWatchedRepos,
+  changeFilterKeyword,
+  changeFilterWatchedRopos,
+  deleteRepoFromWatchedList,
+  filterWatchedRepos,
+  selectSortParam,
+  searchReposWithKeyword,
+  getReposWithKeyword,
+  getWathedRepos,
+  unWatchRepo,
+  watchRepo,
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [SEARCH_REPOS_WITH_TEXT] : (state, action) => {
+  [CHANGE_SEARCH_KEYWORD] : (state, action) => {
     return Object.assign({}, state, {
-      word: action.payload,
+      searchWord: action.payload,
     })
   },
-  [SEARCH_REPOSITORY] : (state, action) => {
+  [CHANGE_SEARCHED_REPOS] : (state, action) => {
     return Object.assign({}, state, {
-      searchRepos: action.payload,
-    })
-  },
-  [FAIND_WATCHED_REPOSITORY] : (state, action) => {
-    return Object.assign({}, state, {
-      watchedRepos: action.payload,
+      searchedRepos: action.payload,
     })
   },
   [CHANGE_SEARCH_REQUEST_LIMIT] : (state, action) => {
@@ -234,36 +243,39 @@ const ACTION_HANDLERS = {
       reqLimit: action.payload,
     })
   },
-  [DELETE_REPO_FROM_WATCHED_LIST] : (state, action) => {
-    const refineWatchedRepos = [].concat(state.refineWatchedRepos)
-    const deleteIndex = action.payload
-    console.log(refineWatchedRepos)
-    const newWatchedRepos = refineWatchedRepos.filter((repo, index) => {
-      return index != deleteIndex
-    })
-    console.log(newWatchedRepos)
-    return Object.assign({}, state, {
-      refineWatchedRepos: newWatchedRepos,
-    })
-  },
-  [DELETE_LIST_ALL] : (state, action) => {
-    return Object.assign({}, state, {
-      searchRepos: action.payload,
-    })
-  },
   [CHANGE_SORT_PARAM] : (state, action) => {
     return Object.assign({}, state, {
       sortParam: action.payload,
     })
   },
-  [CHANGE_REFINE_WORD] : (state, action) => {
+  [DELETE_SEACHED_REPOS_LIST_ALL] : (state, action) => {
     return Object.assign({}, state, {
-      refineWord: action.payload,
+      searchedRepos: action.payload,
     })
   },
-  [REFINE_SEARCH_WATCHED_ROPOS] : (state, action) => {
+  [CHANGE_WATCHED_REPOS] : (state, action) => {
     return Object.assign({}, state, {
-      refineWatchedRepos: action.payload,
+      watchedRepos: action.payload,
+    })
+  },
+  [CHANGE_FILTER_KEYWORD] : (state, action) => {
+    return Object.assign({}, state, {
+      filterWord: action.payload,
+    })
+  },
+  [CHANGE_FILTER_WATCHED_ROPOS] : (state, action) => {
+    return Object.assign({}, state, {
+      filteredRepos: action.payload,
+    })
+  },
+  [DELETE_REPO_FROM_WATCHED_LIST] : (state, action) => {
+    const filteredRepos = [].concat(state.filteredRepos)
+    const deleteIndex = action.payload
+    const newWatchedRepos = filteredRepos.filter((repo, index) => {
+      return index != deleteIndex
+    })
+    return Object.assign({}, state, {
+      filteredRepos: newWatchedRepos,
     })
   },
 }
@@ -272,13 +284,13 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = {
-    word: '',
-    searchRepos: [],
-    watchedRepos: [],
+    searchedRepos: [],
+    searchWord: '',
     reqLimit: false,
     sortParam: '',  // stars, forks, updated | default: sorted by best match.
-    refineWord: '',
-    refineWatchedRepos: [],
+    watchedRepos: [],
+    filterWord: '',
+    filteredRepos: [],
 }
 
 export default function repositoryReducer (state = initialState, action) {

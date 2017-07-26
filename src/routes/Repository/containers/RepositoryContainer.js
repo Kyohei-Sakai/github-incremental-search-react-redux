@@ -3,12 +3,12 @@ import { actions } from '../modules/repository'
 import Repository from '../components/Repository.jsx'
 
 const mapDispatchToProps = {
-  searchReposWithText   : actions.searchAndGetRepos,
-  getWathedRepositories : actions.getWathedRepositories,
-  unWatchRepository     : actions.unWatchRepository,
-  watchRepository       : actions.watchRepository,
-  changeSortParam       : actions.changeSortParam,
-  refineWatchedRepos    : actions.refineWatchedRepos,
+  searchReposWithKeyword  : actions.searchReposWithKeyword,
+  getWathedRepos   : actions.getWathedRepos,
+  unWatchRepo       : actions.unWatchRepo,
+  watchRepo         : actions.watchRepo,
+  selectSortParam         : actions.selectSortParam,
+  filterWatchedRepos      : actions.filterWatchedRepos,
 }
 
 const mapStateToProps = (state) => ({

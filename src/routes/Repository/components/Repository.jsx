@@ -8,23 +8,23 @@ export class Repository extends Component {
 
   render() {
     const { repository } = this.props
-    const { searchReposWithText, watchRepository, changeSortParam } = this.props
-    const { getWathedRepositories, unWatchRepository, refineWatchedRepos } = this.props
+    const { searchReposWithKeyword, watchRepo, selectSortParam } = this.props
+    const { getWathedRepos, unWatchRepo, filterWatchedRepos } = this.props
 
     return (
       <div className='wrapper'>
         <Searcher
-          repos={repository.searchRepos}
-          searchReposWithText={searchReposWithText}
+          repos={repository.searchedRepos}
+          searchReposWithKeyword={searchReposWithKeyword}
           limit={repository.reqLimit}
-          watchRepository={watchRepository}
-          changeSortParam={changeSortParam}
+          watchRepo={watchRepo}
+          selectSortParam={selectSortParam}
         />
         <Watcher
-          repos={repository.refineWatchedRepos}
-          getWathedRepositories={getWathedRepositories}
-          unWatchRepository={unWatchRepository}
-          refineWatchedRepos={refineWatchedRepos}
+          repos={repository.filteredRepos}
+          getWathedRepos={getWathedRepos}
+          unWatchRepo={unWatchRepo}
+          filterWatchedRepos={filterWatchedRepos}
         />
       </div>
     );
@@ -33,12 +33,12 @@ export class Repository extends Component {
 
 Repository.propTypes = {
   repository: PropTypes.object.isRequired,
-  searchReposWithText: PropTypes.func.isRequired,
-  getWathedRepositories: PropTypes.func.isRequired,
-  watchRepository: PropTypes.func.isRequired,
-  unWatchRepository: PropTypes.func.isRequired,
-  changeSortParam: PropTypes.func.isRequired,
-  refineWatchedRepos: PropTypes.func.isRequired,
+  searchReposWithKeyword: PropTypes.func.isRequired,
+  getWathedRepos: PropTypes.func.isRequired,
+  watchRepo: PropTypes.func.isRequired,
+  unWatchRepo: PropTypes.func.isRequired,
+  selectSortParam: PropTypes.func.isRequired,
+  filterWatchedRepos: PropTypes.func.isRequired,
 }
 
 export default Repository

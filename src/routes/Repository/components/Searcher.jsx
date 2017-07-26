@@ -6,7 +6,7 @@ export class Searcher extends Component {
 
   render() {
     const { repos, limit } = this.props
-    const { searchReposWithText, watchRepository, changeSortParam } = this.props
+    const { searchReposWithKeyword, watchRepo, selectSortParam } = this.props
 
     const list = (repos) => {
       return repos.map((repo, index) => (
@@ -28,7 +28,7 @@ export class Searcher extends Component {
               type='button'
               className='btn btn-outline-success btn-sm'
               value={index}
-              onClick={watchRepository}
+              onClick={watchRepo}
             >
               Watch
             </button>
@@ -51,14 +51,14 @@ export class Searcher extends Component {
             typeof='text'
             className='form-control'
             placeholder='Repository name'
-            onChange={searchReposWithText}
+            onChange={searchReposWithKeyword}
           />
           {alert(limit)}
           <div className='params'>
             <div>
               <div className='sort-setting'>
                 <span>sort:</span>
-                <select className='sort-param' onChange={changeSortParam}>
+                <select className='sort-param' onChange={selectSortParam}>
                   <option value=''>best match</option>
                   <option value='stars'>stars</option>
                   <option value='forks'>forks</option>
@@ -80,9 +80,9 @@ export class Searcher extends Component {
 
 Searcher.propTypes = {
   repos: PropTypes.array.isRequired,
-  searchReposWithText: PropTypes.func.isRequired,
-  watchRepository: PropTypes.func.isRequired,
-  changeSortParam: PropTypes.func.isRequired,
+  searchReposWithKeyword: PropTypes.func.isRequired,
+  watchRepo: PropTypes.func.isRequired,
+  selectSortParam: PropTypes.func.isRequired,
 }
 
 export default Searcher

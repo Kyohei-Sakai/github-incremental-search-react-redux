@@ -6,7 +6,7 @@ export class Watcher extends Component {
 
   render() {
     const { repos } = this.props
-    const { getWathedRepositories, unWatchRepository, refineWatchedRepos } = this.props
+    const { getWathedRepos, unWatchRepo, filterWatchedRepos } = this.props
 
     const list = (repos) => {
       return repos.map((repo, index) => {
@@ -30,7 +30,7 @@ export class Watcher extends Component {
                   type='button'
                   className='btn btn-outline-danger btn-sm'
                   value={index}
-                  onClick={unWatchRepository}
+                  onClick={unWatchRepo}
                 >
                   Unwatch
                 </button>
@@ -49,12 +49,12 @@ export class Watcher extends Component {
               typeof='text'
               className='form-control'
               placeholder='Filter keyword'
-              onChange={refineWatchedRepos}
+              onChange={filterWatchedRepos}
             />
             <button
               type='button'
               className='btn btn-primary btn-sm'
-              onClick={getWathedRepositories}
+              onClick={getWathedRepos}
             >
               Update
             </button>
@@ -72,8 +72,8 @@ export class Watcher extends Component {
 
 Watcher.propTypes = {
   repos: PropTypes.array.isRequired,
-  getWathedRepositories: PropTypes.func.isRequired,
-  unWatchRepository: PropTypes.func.isRequired,
+  getWathedRepos: PropTypes.func.isRequired,
+  unWatchRepo: PropTypes.func.isRequired,
 }
 
 export default Watcher
