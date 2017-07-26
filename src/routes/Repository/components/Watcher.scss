@@ -13,6 +13,10 @@
     .btn {
       float: right;
       font-weight: bold;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      background: #cc7a6f;
+      border: none;
     }
   }
   ul {
