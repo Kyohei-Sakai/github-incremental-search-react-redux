@@ -100,7 +100,7 @@ GITHUB_ACCESS_TOKEN: '********',
     - 変更後、最新のWatchedリポジトリを取得
 
 <p align="center"><img src="./demo/search.gif" width="800"></p>
-<p align="center"><img src="./demo/alert.gif" width="800"></p>
+<p align="center"><img src="./demo/alert.gif" width="400"></p>
 
 - Watchエリア
   - `Update`ボタンで最新のWatchedリポジトリを取得して表示
@@ -108,7 +108,7 @@ GITHUB_ACCESS_TOKEN: '********',
   - `Unwatch`ボタンを押すとリストから消える
   - テキスト入力によりフィルターをかけて表示
 
-<p align="center"><img src="./demo/watch.gif" width="400"></p>
+<p align="center"><img src="./demo/watch.gif" width="800"></p>
 
 ## 工夫点
 - SearchAPIのリミットに達した場合にアラートを表示
