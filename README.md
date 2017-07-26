@@ -98,11 +98,17 @@ GITHUB_ACCESS_TOKEN: '********',
   - selectボタンでsortパラメータを変更
   - `Watch`ボタンでリポジトリをWatch状態に変更（フィードバックなし）
     - 変更後、最新のWatchedリポジトリを取得
+
+<p align="center"><img src="./demo/search.gif" width="800"></p>
+<p align="center"><img src="./demo/alert.gif" width="800"></p>
+
 - Watchエリア
   - `Update`ボタンで最新のWatchedリポジトリを取得して表示
     - 最大100件を取得し、うち最大50件が表示される
   - `Unwatch`ボタンを押すとリストから消える
   - テキスト入力によりフィルターをかけて表示
+
+<p align="center"><img src="./demo/watch.gif" width="400"></p>
 
 ## 工夫点
 - SearchAPIのリミットに達した場合にアラートを表示
