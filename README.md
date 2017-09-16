@@ -1,7 +1,5 @@
 # Github Incremental Search React Redux
 
-Wantedly インターン選考課題 [React]
-
 ## 開発にあたって
 
 - [React Redux Starter Kit](https://github.com/davezuko/react-redux-starter-kit) をベースに作成
